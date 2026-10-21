@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: rgb(233, 237, 255);
+}
+
+.tablero {
+    display: grid;
+    width: 512;
+    height: 512;
+    grid-template-columns: repeat(32, 16px);
+    grid-template-rows: repeat(32, 16px);
+    border: 1px solid black;
+}
+
+.controls-container {
+    background-color: rgb(0, 47, 255);
+    width: 215px;
+    height: 215px;
+}
+
+
+.tile {
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgb(9, 39, 0);
+    background-color: pink;
+    background-image: url('./img/spritesheet.png');
+    background-repeat: no-repeat;
+    background-position-x: -86px;
+    background-position-y: -86px;
+}
+
+.tile-hierba {
+    background-position-x: -86px;
+    background-position-y: -86px;
+}
+
+.tile-agua {
+    background-position-x: -18px;
+    background-position-y: -35px;
+}
+
+.tile-muro {
+    background-position-x: -69px;
+    background-position-y: -35px;
+}
+
+.tile-arbusto {
+    background-position-x: -69px;
+    background-position-y: -52px;
+}
+

@@ -1,0 +1,15 @@
+id,nombre,email,pista,fecha,hora,material
+1,Juan Pérez,juan@example.com,Pádel 1,2026-10-15,17:00,Raquetas:Petos
+2,María García,maria@example.com,Pádel 2,2026-10-15,18:00,Raquetas
+3,Carlos López,carlos@example.com,Tenis,2026-10-15,20:00,Petos:Balón
+4,Ana Martínez,ana@example.com,Baloncesto,2026-10-16,17:00,Balón
+5,Pedro Sánchez,pedro@example.com,Pádel 1,2026-10-16,18:00,Petos:Raquetas
+6,Laura Fernández,laura@example.com,Tenis,2026-10-16,16:00,Raquetas:Petos
+7,David Romero,david@example.com,Baloncesto,2026-10-17,21:00,Balón:Petos
+8,Lucía Torres,lucia@example.com,Pádel 2,2026-10-17,19:00,Raquetas:Balón
+9,Javier Ruiz,javier@example.com,Tenis,2026-10-18,20:00,Petos
+10,Elena Díaz,elena@example.com,Baloncesto,2026-10-18,19:00,Balón:Raquetas
+11,Leonardo Gonzalez Camacho,rinblue@gmail.es,Tenis,2026-10-24,18:00,Raquetas:Petos
+12,Shigeru Miyamoto Zelda,nintendomisukiwugang@hotmail.chi,Baloncesto,2026-10-20,21:00,Balón
+13,Pedro,spiderham@itsv2027.com,Pádel 1,2026-10-26,19:00,
+14,Leon Scott Kennedy,iloveada@racooncity.com,Pádel 1,2026-10-29,16:00,Raquetas
