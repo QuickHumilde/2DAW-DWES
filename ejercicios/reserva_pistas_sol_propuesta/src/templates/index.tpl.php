@@ -55,12 +55,13 @@
             <?php foreach ($reservas as $reserva): ?>
                 <tr>
                     <?php foreach ($reserva as $campoReserva): ?>
-                        <td><?php echo htmlspecialchars($campoReserva ?? ''); ?></td>
+                        <td><?php echo htmlspecialchars($campoReserva); ?></td>
                     <?php endforeach; ?>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <a href="./reservar.php">Nueva reserva</a>
 </body>
 
 </html>

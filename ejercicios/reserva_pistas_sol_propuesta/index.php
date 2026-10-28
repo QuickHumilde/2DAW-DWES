@@ -5,15 +5,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//Definición de constantes
-define('PISTAS_VALIDAS', array('Pádel 1', 'Pádel 2', 'Baloncesto', 'Tenis'));
-
 //Includes
+include(__DIR__.'/src/vars.php');
 include(__DIR__.'/src/functions.php');
 //Obtengo todas las reservas
-//$reservas = getCSVData(__DIR__.'/src/data/reservas.csv');
-
-$reservas = getDatabaseData();
+$reservas = getPersistentData([
+    'dsn' => 'mysql:dbname=reservas_pistas;host=localhost',
+    'username' => 'root',
+    'password' => ''
+],'db');
 
 //Obtengo filtros, si los hay
 $filtros = getValidFiltersFromQueryString();
