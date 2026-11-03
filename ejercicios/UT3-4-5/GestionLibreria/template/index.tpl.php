@@ -14,13 +14,38 @@
 
     <form method="get" action="./">
         <select name="genero" id="filtroGenero">
-                <option value="" selected>Seleccionar...</option>
-                <?php foreach(GENEROS as $genero): ?>
-                    <option><?php htmlspecialchars($genero) ?></option>
-                <?php endforeach ?>
-            </select>
-
+            <option value="">Todos</option>
+            <?php foreach (GENEROS as $genero): ?>
+                <option value="<?= htmlspecialchars($genero) ?>" <?= ($filtros['genero'] ?? '') === $genero ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($genero) ?>
+                </option>
+            <?php endforeach ?>
+        </select>
         <button>Filtrar</button>
     </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Año</th>
+                <th>Género</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($libros as $libro): ?>
+                <tr>
+                    <td><?= htmlspecialchars($libro['titulo']) ?></td>
+                    <td><?= htmlspecialchars($libro['autor']) ?></td>
+                    <td><?= htmlspecialchars($libro['anio']) ?></td>
+                    <td><?= htmlspecialchars($libro['genero']) ?></td>
+                    <td><?= $libro['disponible'] ? 'Disponible' : 'No disponible' ?></td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+
 </body>
 </html>

@@ -1,3 +1,3 @@
 <?php
 
-define('GENEROS', array('isbn', 'titulo', 'autor', 'anio', 'genero', 'disponible'));
+define('GENEROS', ['Novela', 'Poesía', 'Cómic', 'Ensayo', 'Teatro']);
