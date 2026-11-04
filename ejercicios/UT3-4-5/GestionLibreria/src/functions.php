@@ -46,3 +46,8 @@ function listarLibros(PDO $pdo, ?string $genero=null): array {
 
     return $resultado->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function insertarLibro(PDO $pdo, array $datos): int {
+
+    return 1;
+}

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +23,12 @@
         <button>Filtrar</button>
     </form>
 
-    <table border="1">
+    <br>
+
+    <?php if(empty($libros)): ?>
+        <p>No hay libros de ese género</p>
+    <?php else: ?>
+        <table border="1">
         <thead>
             <tr>
                 <th>Título</th>
@@ -33,19 +37,23 @@
                 <th>Género</th>
                 <th>Estado</th>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($libros as $libro): ?>
-                <tr>
-                    <td><?= htmlspecialchars($libro['titulo']) ?></td>
-                    <td><?= htmlspecialchars($libro['autor']) ?></td>
-                    <td><?= htmlspecialchars($libro['anio']) ?></td>
-                    <td><?= htmlspecialchars($libro['genero']) ?></td>
-                    <td><?= $libro['disponible'] ? 'Disponible' : 'No disponible' ?></td>
-                </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($libros as $libro): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($libro['titulo']) ?></td>
+                        <td><?= htmlspecialchars($libro['autor']) ?></td>
+                        <td><?= htmlspecialchars($libro['anio']) ?></td>
+                        <td><?= htmlspecialchars($libro['genero']) ?></td>
+                        <td><?= $libro['disponible'] ? 'Disponible' : 'No disponible' ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
 
+    <?php endif; ?>
+    <br>
+
+    <a href="./nuevo.php">Añadir libro</a>
 </body>
 </html>

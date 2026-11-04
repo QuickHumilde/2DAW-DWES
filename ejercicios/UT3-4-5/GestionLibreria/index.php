@@ -14,7 +14,7 @@ $conexion = conectar([
 ]);
 
 $filtros = [
-    'genero' => ($_GET['genero'] ?? '') !== '' ? $_GET['genero'] : null,
+    'genero' => (filter_input(INPUT_GET,'genero') ?? '') !== '' ? filter_input(INPUT_GET,'genero')  : null,
 ];
 
 $libros = listarLibros($conexion, $filtros['genero']);
