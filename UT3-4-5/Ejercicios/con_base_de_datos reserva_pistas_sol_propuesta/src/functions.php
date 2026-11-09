@@ -25,7 +25,9 @@ function _getDBData($dbConnectionParameters)
         $dbConnectionParameters['dsn'],
         $dbConnectionParameters['username'],
         $dbConnectionParameters['password'],
-    );
+    ) [
+
+    ]
 
     $sth = $dbh->prepare('SELECT * FROM reserva');
     $sth->execute();

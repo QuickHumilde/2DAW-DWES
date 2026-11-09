@@ -37,6 +37,7 @@ function validateFilters($filtros){
             $filtros['fecha']=NULL;
     }
 
+    filter_input_array()
     return $filtros;
 }
 
