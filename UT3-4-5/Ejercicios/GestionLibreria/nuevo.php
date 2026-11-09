@@ -7,18 +7,9 @@ error_reporting(E_ALL);
 include(__DIR__.'/src/functions.php');
 include(__DIR__.'/src/vars.php');
 
-$conexion = conectar([
-    'dns' => 'mysql:dbname=biblioteca;host=localhost',
-    'username' => 'root',
-    'password' => '',
-]);
-
-$filtros = [
-    'genero' => (filter_input(INPUT_GET,'genero') ?? '') !== '' ? filter_input(INPUT_GET,'genero')  : null,
-];
-
-$libros = listarLibros($conexion, $filtros['genero']);
-
-$numDisponibles = contarDisponibles($conexion);
+if(($_SERVER['REQUEST_METHOD'] === 'POST')&&(isset($_POST['nuevo_libro']))){
+   $datosValidos = $_POST;
+   dump($datosValidos);
+}
 
 include(__DIR__.'/template/nuevo.tpl.php');
