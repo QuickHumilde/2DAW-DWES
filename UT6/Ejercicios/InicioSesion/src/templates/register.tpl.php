@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>REGISTRO</h1>
+    <?php foreach ($errores as $error): ?>
+        <p style="color: red;">
+            <?= htmlspecialchars($error) ?>
+        </p>
+    <?php endforeach; ?>
+    
     <form method="POST">
         
         <label for="email">Email:*</label>

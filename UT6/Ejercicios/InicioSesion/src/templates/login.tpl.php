@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,8 +9,8 @@
     <h1>INICIO SESION</h1>
     <form method="POST">
 
-        <label for="nombre_usuario">Nombre Usuario:</label>
-        <input name="nombre_usuario" value="" type="text">
+        <label for="email">Email</label>
+        <input name="email" value="" type="email">
         <br><br>
 
         <label for="contraseña">Contraseña:</label>

@@ -4,7 +4,24 @@ function dump($var){
     echo '<pre>'; var_dump($var); echo '</pre>';
 }
 
+function conectar(){
+    $DB_DSN  = 'mysql:host=localhost;dbname=login_dwes;charset=utf8mb4';
+    $DB_USER = 'login_dwes';
+    $DB_PASS = 'Login2026.';
+
+    static $pdo = null;
+    if ($pdo === null) {
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS, [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ]);
+    }
+    return $pdo;
+}
+
 function getDataFromForm(){
+
     $nombre = filter_input(INPUT_POST, "nombre_usuario");
     $contraseña = filter_input(INPUT_POST, "contraseña");
     $contraseña_confirmacion = filter_input(INPUT_POST, "contraseña_confirmacion");
@@ -12,11 +29,11 @@ function getDataFromForm(){
     $boton = filter_input(INPUT_POST, "boton_enviar");
 
     return [
-        "nombre_usuario" => $nombre,
-        "contraseña" => $contraseña,
-        "email" => $email,
-        "boton_enviar" =>  $boton,
-        "contraseña_confirmacion" => $contraseña_confirmacion,
+        "nombre_usuario" => trim($nombre ?? ''),
+        "contraseña" => trim($contraseña ?? ''),
+        "email" => trim($email ?? ''),
+        "boton_enviar" => $boton,
+        "contraseña_confirmacion" => trim($contraseña_confirmacion ?? ''),
     ];
 }
 
@@ -39,7 +56,7 @@ function validateDatos($datos){
     return $errores;
 }
 function _validatePassword($contraseña, $contraseña_confirmacion){
-    if(strlen($contraseña) <= 8){
+    if(strlen($contraseña) < 8){
         return "La contraseña debe de tener mas de 7 caracteres";
     }
 
@@ -56,4 +73,8 @@ function _validateEmail($email){
     }
 
     return true;
+}
+
+function registerUser($datos){
+
 }

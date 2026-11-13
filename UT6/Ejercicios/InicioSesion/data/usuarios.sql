@@ -5,6 +5,9 @@
 -- (pestaña SQL). Se puede ejecutar varias veces sin errores.
 -- ============================================================
 
+-- Juego de caracteres de la conexión (sin esto, las tildes pueden guardarse mal)
+SET NAMES utf8mb4;
+
 -- Base de datos
 CREATE DATABASE IF NOT EXISTS login_dwes
     CHARACTER SET utf8mb4
