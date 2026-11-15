@@ -1,4 +1,3 @@
-
 <?php
 
 ini_set('display_errors', 1);
@@ -9,26 +8,38 @@ require_once(__DIR__ . '/src/functions.php');
 
 session_start();
 
+if (estaLogueado()) {
+    header('Location: bienvenida.php');
+    exit();
+}
+
 $errores = [];
 
 $datos = getDataFromForm();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($datos['boton_enviar']) && $datos['boton_enviar'] === "boton_enviar") {
 
-    if (empty($datos['nombre_usuario'])) {
-        $errores[] = "El nombre es obligatorio";
-    }
-
-    $errores = array_merge($errores, validateDatos($datos));
+    $errores = validateDatos($datos);
 
     if (empty($errores)) {
-        registerUser($datos);
-        header("Location: login.php");
-        exit();
+        try {
+            registerUser($datos);
+        } catch (PDOException $e) {
+            
+            if ($e->getCode() === '23000') {
+                $errores['email'] = "Ese email ya está registrado";
+            } else {
+                throw $e;
+            }
+        }
+
+        if (empty($errores)) {
+            setFlash('Registro completado. Ya puedes iniciar sesión.');
+            header("Location: login.php");
+            exit();
+        }
     }
 
 }
 
 include(__DIR__ . '/src/templates/register.tpl.php');
-
-?>

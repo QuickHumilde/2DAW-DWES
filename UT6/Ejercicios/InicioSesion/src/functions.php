@@ -30,16 +30,20 @@ function getDataFromForm(){
 
     return [
         "nombre_usuario" => trim($nombre ?? ''),
-        "contraseña" => trim($contraseña ?? ''),
+        "contraseña" => $contraseña ?? '',
         "email" => trim($email ?? ''),
         "boton_enviar" => $boton,
-        "contraseña_confirmacion" => trim($contraseña_confirmacion ?? ''),
+        "contraseña_confirmacion" => $contraseña_confirmacion ?? '',
     ];
 }
 
 function validateDatos($datos){
 
     $errores = [];
+
+    if($datos["nombre_usuario"] === ''){
+        $errores["nombre_usuario"] = "El nombre es obligatorio";
+    }
 
     $errorPassword = _validatePassword($datos["contraseña"],$datos["contraseña_confirmacion"]);
 
@@ -51,6 +55,8 @@ function validateDatos($datos){
 
     if($errorEmail !== true){
         $errores["email"] = $errorEmail;
+    } elseif(emailExiste($datos["email"])){
+        $errores["email"] = "Ese email ya está registrado";
     }
 
     return $errores;
@@ -75,6 +81,54 @@ function _validateEmail($email){
     return true;
 }
 
-function registerUser($datos){
+function emailExiste($email){
+    $stmt = conectar()->prepare('SELECT 1 FROM usuarios WHERE email = :email');
+    $stmt->execute([':email' => $email]);
+    return $stmt->fetchColumn() !== false;
+}
 
+function registerUser($datos){
+    $stmt = conectar()->prepare(
+        'INSERT INTO usuarios (email, nombre, contrasena) VALUES (:email, :nombre, :contrasena)'
+    );
+    $stmt->execute([
+        ':email'      => $datos['email'],
+        ':nombre'     => $datos['nombre_usuario'],
+        ':contrasena' => password_hash($datos['contraseña'], PASSWORD_DEFAULT),
+    ]);
+}
+
+function buscarUsuarioPorEmail($email){
+    $stmt = conectar()->prepare('SELECT id, nombre, contrasena FROM usuarios WHERE email = :email');
+    $stmt->execute([':email' => $email]);
+    return $stmt->fetch();   // false si no existe
+}
+
+function estaLogueado(){
+    return isset($_SESSION['usuario_id']);
+}
+
+function iniciarSesionUsuario($usuario){
+    session_regenerate_id(true); 
+    $_SESSION['usuario_id']     = $usuario['id'];
+    $_SESSION['usuario_nombre'] = $usuario['nombre'];
+}
+
+function cerrarSesion(){
+    $_SESSION = [];
+    if (ini_get('session.use_cookies')) {
+        $p = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+    }
+    session_destroy();
+}
+
+function setFlash($mensaje){
+    $_SESSION['flash'] = $mensaje;
+}
+
+function getFlash(){
+    $mensaje = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+    return $mensaje;
 }
