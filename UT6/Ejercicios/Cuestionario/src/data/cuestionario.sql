@@ -13,17 +13,35 @@ USE cuestionario_sesiones_dwes;
 
 -- =====================================================
 -- TABLA USUARIOS
--- Se crea únicamente si todavía no existe.
--- Si ya tienes usuarios.sql, comprueba que su tabla
--- tiene una clave primaria llamada id compatible.
 -- =====================================================
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    usuario VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB;
 
+
+-- =====================================================
+-- INSERTAR USUARIOS DE EJEMPLO
+-- Las contraseñas están almacenadas mediante password_hash()
+--
+-- CREDENCIALES DE ACCESO:
+-- Usuario: admin    | Contraseña: password
+-- Usuario: alumno1  | Contraseña: password
+-- Usuario: alumno2  | Contraseña: password
+--
+-- Hash generado con bcrypt (compatible con PHP PASSWORD_DEFAULT)
+-- =====================================================
+
+INSERT INTO usuarios (nombre, password)
+VALUES
+('admin',   '$2y$10$mpHtu0KoyvrLbG7s8j56DOQ8iz/83q/foCSS0KmyaLRmmQLyziUue'),
+('alumno1', '$2y$10$mpHtu0KoyvrLbG7s8j56DOQ8iz/83q/foCSS0KmyaLRmmQLyziUue'),
+('alumno2', '$2y$10$mpHtu0KoyvrLbG7s8j56DOQ8iz/83q/foCSS0KmyaLRmmQLyziUue')
+
+ON DUPLICATE KEY UPDATE
+    password = VALUES(password);
 
 -- =====================================================
 -- TABLA PREGUNTAS
@@ -62,8 +80,6 @@ CREATE TABLE IF NOT EXISTS resultados (
 
 -- =====================================================
 -- INSERTAR PREGUNTAS
--- ON DUPLICATE KEY UPDATE evita duplicados
--- al ejecutar el script varias veces.
 -- =====================================================
 
 INSERT INTO preguntas

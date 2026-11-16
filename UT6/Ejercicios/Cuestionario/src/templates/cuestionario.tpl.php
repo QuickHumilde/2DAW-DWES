@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    
+<body>
+    <?php if (!empty($cuestionario)): ?>
+        <?php foreach ($cuestionario as $pregunta): ?>
+            <p><?= $pregunta ?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</body>
 </body>
 </html>
