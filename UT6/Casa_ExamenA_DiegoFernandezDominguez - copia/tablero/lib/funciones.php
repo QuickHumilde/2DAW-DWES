@@ -1,6 +1,7 @@
 <?php
 
 const TAMANO = 6;
+const MAX_HISTORIAL = 5;
 
 const PALETA = [
     'rojo' => 'Rojo',
@@ -13,6 +14,11 @@ const PALETA = [
 
 function dump($var){
     echo "<pre>"; var_dump($var,1); echo "</pre>";
+}
+
+function guardarHistorial($tablero) {
+    $_SESSION["historial"][] = $tablero;
+    $_SESSION["historial"] = array_slice($_SESSION["historial"], -MAX_HISTORIAL);
 }
 
 function getVariablesFromPost() {

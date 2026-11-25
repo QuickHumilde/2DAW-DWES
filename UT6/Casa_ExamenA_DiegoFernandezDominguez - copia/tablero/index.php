@@ -33,8 +33,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         switch ($datos["accion"]) {
             case "pintar":
                 if(empty($errores["fila"]) && empty($errores["columna"])&& empty($errores["color"]) && isset($errores["fila"]) && isset($errores["columna"])&& isset($errores["color"])){
-                    $tablero[$datos["fila"]-1][$datos["columna"]-1] = $datos["color"];
-                    $_SESSION["tablero"] = $tablero;
+                    $nuevo = $tablero;
+                    $nuevo[$datos["fila"]-1][$datos["columna"]-1] = $datos["color"];
+                    if ($nuevo !== $tablero) {
+                        guardarHistorial($tablero);
+                        $tablero = $nuevo;
+                        $_SESSION["tablero"] = $tablero;
+                    }
                     $_SESSION["flash_good"] = "Casilla pintada correctamente";
                 } else {
                     $_SESSION["flash_bad"] = "No se ha podido realizar la accion";
@@ -43,8 +48,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             case "borrar":
                 if(empty($errores["fila"]) && empty($errores["columna"]) && isset($errores["fila"]) && isset($errores["columna"])){
-                    $tablero[$datos["fila"]-1][$datos["columna"]-1] = "";
-                    $_SESSION["tablero"] = $tablero;
+                    $nuevo = $tablero;
+                    $nuevo[$datos["fila"]-1][$datos["columna"]-1] = "";
+                    if ($nuevo !== $tablero) {
+                        guardarHistorial($tablero);
+                        $tablero = $nuevo;
+                        $_SESSION["tablero"] = $tablero;
+                    }
                     $_SESSION["flash_good"] = "Casilla eliminada correctamente";
                 } else {
                     $_SESSION["flash_bad"] = "No se ha podido realizar la accion";
@@ -59,6 +69,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 $_SESSION["tablero"] = $tablero;
+                $_SESSION["historial"] = [];
+                break;
+
+            case "deshacer":
+                if (empty($_SESSION["historial"])) {
+                    $_SESSION["flash_bad"] = "No hay nada que deshacer";
+                } else {
+                    $tablero = array_pop($_SESSION["historial"]);
+                    $_SESSION["tablero"] = $tablero;
+                    $_SESSION["flash_good"] = "Accion deshecha correctamente";
+                }
                 break;
             
             default:
